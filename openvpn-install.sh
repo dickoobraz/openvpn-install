@@ -230,7 +230,7 @@ function installQuestions () {
 	echo ""
 	# Ask the user if they want to enable IPv6 regardless its availability.
 	until [[ $IPV6_SUPPORT =~ (y|n) ]]; do
-		read -rp "Do you want to enable IPv6 support?: " -e -i $SUGGESTION IPV6_SUPPORT
+		read -rp "Do you want to enable IPv6 support?: " -e IPV6_SUPPORT
 	done
 	echo ""
 	echo "What port do you want OpenVPN to listen to?"
@@ -238,7 +238,7 @@ function installQuestions () {
 	echo "   2) Custom"
 	echo "   3) Random [49152-65535]"
 	until [[ "$PORT_CHOICE" =~ ^[1-3]$ ]]; do
-		read -rp "Port choice: " -e -i 1 PORT_CHOICE
+		read -rp "Port choice: " -e PORT_CHOICE
 	done
 	case $PORT_CHOICE in
 		1)
@@ -261,7 +261,7 @@ function installQuestions () {
 	echo "   1) UDP"
 	echo "   2) TCP"
 	until [[ "$PROTOCOL_CHOICE" =~ ^[1-2]$ ]]; do
-		read -rp "Protocol: " -e -i 1 PROTOCOL_CHOICE
+		read -rp "Protocol: " -e PROTOCOL_CHOICE
 	done
 	case $PROTOCOL_CHOICE in
 		1)
@@ -285,7 +285,7 @@ function installQuestions () {
 	echo "   10) Yandex Basic (Russia)"
 	echo "   11) AdGuard DNS (Russia)"
 	until [[ "$DNS" =~ ^[0-9]+$ ]] && [ "$DNS" -ge 1 ] && [ "$DNS" -le 11 ]; do
-		read -rp "DNS: " -e -i 3 DNS
+		read -rp "DNS: " -e DNS
 			if [[ $DNS == 2 ]] && [[ -e /etc/unbound/unbound.conf ]]; then
 				echo ""
 				echo "Unbound is already installed."
@@ -307,7 +307,7 @@ function installQuestions () {
 	echo ""
 	echo "Do you want to use compression? It is not recommended since the VORACLE attack make use of it."
 	until [[ $COMPRESSION_ENABLED =~ (y|n) ]]; do
-		read -rp"Enable compression?: " -e -i n COMPRESSION_ENABLED
+		read -rp"Enable compression?: " -e COMPRESSION_ENABLED
 	done
 	if [[ $COMPRESSION_ENABLED == "y" ]];then
 		echo "Choose which compression algorithm you want to use:"
@@ -332,7 +332,7 @@ function installQuestions () {
 	echo "See https://github.com/angristan/openvpn-install#security-and-encryption to learn more."
 	echo ""
 	until [[ $CUSTOMIZE_ENC =~ (y|n) ]]; do
-		read -rp "Customize encryption settings?: " -e -i n CUSTOMIZE_ENC
+		read -rp "Customize encryption settings?: " -e CUSTOMIZE_ENC
 	done
 	if [[ $CUSTOMIZE_ENC == "n" ]];then
 		# Use default, sane and fast parameters
@@ -961,7 +961,7 @@ function newClient () {
 	echo "   2) Use a password for the client"
 
 	until [[ "$PASS" =~ ^[1-2]$ ]]; do
-		read -rp "Select an option: " -e -i 1 PASS
+		read -rp "Select an option: " -e PASS
 	done
 
 	cd /etc/openvpn/easy-rsa/ || return
